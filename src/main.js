@@ -1,5 +1,5 @@
-import Todo from './todos.js'
-import Project from './projects.js'
+import Todo from './todo.js'
+import Project from './project.js'
 import Create from './create.js'
 import displayController from './display_con.js'
 
@@ -36,9 +36,14 @@ mainDiv.appendChild(title);
 let todoDiv = null;
 
 defaultProject.todos.forEach((todo) => {
+  let count = 0;
   todoDiv = displayCon.addTodo(mainDiv);
-  displayCon.addTodoProp(todo.title, todoDiv);
-  displayCon.addTodoProp(todo.description, todoDiv);
-  displayCon.addTodoProp(todo.dueDate, todoDiv);
-  displayCon.addTodoProp(todo.priority, todoDiv);
+  displayCon.addTodoProp(todo.title, todoDiv, count);
+  count++;
+  displayCon.addTodoProp(todo.description, todoDiv, count);
+  count++;
+  displayCon.addTodoProp(todo.dueDate, todoDiv, count);
+  count++;
+  displayCon.addTodoProp(todo.priority, todoDiv, count);
+  count = 0;
 });

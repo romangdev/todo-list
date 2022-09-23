@@ -5,9 +5,17 @@ export default class displayController {
     return todoDiv;
   };
 
-  addTodoProp = (todoPropCall, todoDiv) => {
+  addTodoProp = (todoPropCall, todoDiv, count) => {
     let todoProp = document.createElement('p');
-    todoProp.textContent = todoPropCall;
+    if (count === 0) {
+      todoProp.innerText = `TITLE:\n${todoPropCall}`;
+    } else if (count === 1) {
+      todoProp.innerText = `DESC:\n${todoPropCall}`;
+    } else if (count === 2) {
+      todoProp.innerText = `DUE DATE:\n${todoPropCall}`;
+    } else {
+      todoProp.innerText = `PRIORITY:\n${todoPropCall}`;
+    }
     todoDiv.appendChild(todoProp);
   };
 }
