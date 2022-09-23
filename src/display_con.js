@@ -17,5 +17,6 @@ export default class displayController {
       todoProp.innerText = `PRIORITY:\n${todoPropCall}`;
     }
     todoDiv.appendChild(todoProp);
+    return ++count;
   };
 }

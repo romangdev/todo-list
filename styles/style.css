@@ -1,0 +1,8 @@
+.main > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main > div > p {
+  width: 20%;
+}

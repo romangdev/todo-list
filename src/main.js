@@ -38,12 +38,31 @@ let todoDiv = null;
 defaultProject.todos.forEach((todo) => {
   let count = 0;
   todoDiv = displayCon.addTodo(mainDiv);
-  displayCon.addTodoProp(todo.title, todoDiv, count);
-  count++;
-  displayCon.addTodoProp(todo.description, todoDiv, count);
-  count++;
-  displayCon.addTodoProp(todo.dueDate, todoDiv, count);
-  count++;
+  count = displayCon.addTodoProp(todo.title, todoDiv, count);
+  count = displayCon.addTodoProp(todo.description, todoDiv, count);
+  count = displayCon.addTodoProp(todo.dueDate, todoDiv, count);
   displayCon.addTodoProp(todo.priority, todoDiv, count);
   count = 0;
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.className === "btn-add-todo") {
+    let title = prompt("Name your todo task:");
+    let desc = prompt("Describe your todo task:");
+    let date = prompt("Enter the due date (e.g. 08/21/2022):");
+    let priority = prompt("What priority is this task (low, medium, or high)?");
+
+    let newTodo = new Todo(title, desc, date, priority);
+    defaultProject.todos.push(newTodo);
+
+    defaultProject.todos.forEach((todo) => {
+      let count = 0;
+      todoDiv = displayCon.addTodo(mainDiv);
+      count = displayCon.addTodoProp(todo.title, todoDiv, count);
+      count = displayCon.addTodoProp(todo.description, todoDiv, count);
+      count = displayCon.addTodoProp(todo.dueDate, todoDiv, count);
+      displayCon.addTodoProp(todo.priority, todoDiv, count);
+      count = 0;
+    });
+  }
 });
