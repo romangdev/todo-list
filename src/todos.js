@@ -1,4 +1,5 @@
-export default class Todos {
+// Used to store information about individual todos
+export default class Todo {
   constructor(title, description, dueDate, priority) {
     this.title = title;
     this.description = description;
