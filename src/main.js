@@ -55,6 +55,8 @@ document.addEventListener('click', (e) => {
     let newTodo = new Todo(title, desc, date, priority);
     defaultProject.todos.push(newTodo);
 
+    displayCon.removeAllChildNodes(mainDiv);
+
     defaultProject.todos.forEach((todo) => {
       let count = 0;
       todoDiv = displayCon.addTodo(mainDiv);

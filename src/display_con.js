@@ -19,4 +19,10 @@ export default class displayController {
     todoDiv.appendChild(todoProp);
     return ++count;
   };
+
+  removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+  }
 }
