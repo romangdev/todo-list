@@ -82,12 +82,18 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// When a project is chosed from the 'View All Projects' list, update the project
+// title and only show todo tasks for that project
 mainDiv.addEventListener('click', (e) => {
   if (e.target.localName === 'button') {
     displayCon.removeAllChildNodes(mainDiv);
     projects.forEach((project) => {
       if (project.name === e.target.innerText) {
         displayCon.updateTitle(title, project, mainDiv);
+        project.todos.forEach((todo) => {
+          displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
+                                      todo.priority, todoDiv, mainDiv);
+        });
       }
     });
   }
