@@ -2,6 +2,7 @@
 import Todo from './todo.js'
 
 export default class Create {
+  // Create new todo object and associate it with project if appropriate
   createNewTodo = (defaultProject, projects) => {
     let title = prompt("Name your todo task:");
     let desc = prompt("Describe your todo task:");
@@ -9,14 +10,7 @@ export default class Create {
     let priority = prompt("What priority is this task (low, medium, or high)?");
     let project = prompt("Do want want to add this task to a specific project? (Type project name if yes, or just hit 'enter' if no)");
 
-    let projectExists = false;
-
-    projects.forEach((projectArr) => {
-      if (projectArr.name === project) {
-        projectExists = true;
-      }
-    });
-
+    let projectExists = this.checkIfProjectExists(projects, project);
     if (projectExists === false) {
       project = "None";
     }
@@ -25,20 +19,27 @@ export default class Create {
     defaultProject.todos.push(newTodo);
 
     if (projectExists) {
-      projects.forEach((projectArr) => {
-        if (projectArr.name === project) {
-          projectArr.todos.push(newTodo)
-        } 
-      });
+      this.pushNewTodoOnProject(projects, newTodo, project);
     }
   }
 
-  // handleNoProject = (project) => {
-  //   if (project === null || project === undefined || project === "no" || project === "n") {
-  //     return project = "None";
-  //   }
-  //   else {
-  //     return project;
-  //   }
-  // }
+  // Check and see if user typed project exists
+  checkIfProjectExists = (projects, project) => {
+    let projectExists = false;
+    projects.forEach((projectArr) => {
+      if (projectArr.name === project) {
+        projectExists = true;
+      }
+    });
+    return projectExists;
+  };
+
+  // Push the newly created todo object into existing, specified project
+  pushNewTodoOnProject = (projects, newTodo, project) => {
+    projects.forEach((projectArr) => {
+      if (projectArr.name === project) {
+        projectArr.todos.push(newTodo)
+      } 
+    });
+  };
 }

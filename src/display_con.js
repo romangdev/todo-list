@@ -1,10 +1,12 @@
 export default class displayController {
+  // Display todo item to user
   displayTodo = (mainDiv) => {
     let todoDiv = document.createElement('div');
     mainDiv.appendChild(todoDiv);
     return todoDiv;
   };
 
+  // Add individual todo properties to todo item display
   addTodoProp = (todoPropCall, todoDiv, count) => {
     let todoProp = document.createElement('p');
     if (count === 0) {
@@ -22,6 +24,7 @@ export default class displayController {
     return ++count;
   };
 
+  // Combine all todo properties into one todo display object
   combineTodoProps = (title, description, project, dueDate, priority, todoDiv, mainDiv) => {
     let count = 0;
     todoDiv = this.displayTodo(mainDiv);
