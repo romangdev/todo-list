@@ -5,6 +5,7 @@ import displayController from './display_con.js'
 
 let displayCon = new displayController;
 let create = new Create;
+let projects = [];
 
 let todo1 = new Todo(
   'Fix sink',
@@ -28,6 +29,7 @@ let todo3 = new Todo(
 );
 
 let defaultProject = new Project('All Todos', [todo1, todo2, todo3]);
+projects.push(defaultProject);
 
 let mainDiv = document.querySelector('.main');
 let title = document.createElement('h1');
@@ -41,14 +43,27 @@ defaultProject.todos.forEach((todo) => {
                               todo.priority, todoDiv, mainDiv);
 });
 
+// If the 'Add a Todo' button is clicked, create new todo based on user response
+// and then append it onto appropriate project displays
 document.addEventListener('click', (e) => {
   if (e.target.className === "btn-add-todo") {
-    create.createNewTodo(defaultProject);
+    create.createNewTodo(defaultProject, projects);
     displayCon.removeAllChildNodes(mainDiv);
 
     defaultProject.todos.forEach((todo) => {
       displayCon.combineTodoProps(todo.title, todo.description, todo.dueDate, 
                                   todo.priority, todoDiv, mainDiv);
     });
+  }
+});
+
+// If 'Create a Project' button is clicked, get project name from user, create 
+// new project object, and append it onto projects display
+document.addEventListener('click', (e) => {
+  if (e.target.className === "btn-create-project") {
+    let newProjectName = prompt("What do you want to name your project?");
+    let newProject = new Project(newProjectName, []);
+    projects.push(newProject);
+    console.log(projects);
   }
 });
