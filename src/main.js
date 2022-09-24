@@ -41,6 +41,7 @@ mainDiv.appendChild(title);
 
 let todoDiv = null;
 
+// Display all todos as default page when user first loads up site
 defaultProject.todos.forEach((todo) => {
   displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
                               todo.priority, todoDiv, mainDiv);
@@ -68,5 +69,22 @@ document.addEventListener('click', (e) => {
     let newProject = new Project(newProjectName, []);
     projects.push(newProject);
     console.log(projects);
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.className === "btn-all-projects") {
+    displayCon.removeAllChildNodes(mainDiv);
+    projects.forEach((project) => {
+      let newProjectPara = document.createElement('button');
+      mainDiv.appendChild(newProjectPara);
+      newProjectPara.innerText = `${project.name}`;
+    });
+  }
+});
+
+mainDiv.addEventListener('click', (e) => {
+  if (e.target.localName === 'button') {
+    console.log(e.target.innerText);
   }
 });
