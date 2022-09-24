@@ -9,14 +9,17 @@ export default class Create {
     let priority = prompt("What priority is this task (low, medium, or high)?");
     let project = prompt("Do want want to add this task to a specific project? (Type project name if yes, or just hit 'enter' if no)");
 
+    if (project === null || project === "no" || project === "n") {
+      project = "None"
+    }
+    
     let newTodo = new Todo(title, desc, date, priority, project);
     defaultProject.todos.push(newTodo);
-    if (project !== null) {
-      projects.forEach((projectArr) => {
-        if (projectArr.name === project) {
-          projectArr.todos.push(newTodo)
-        }
-      });
-    }
+
+    projects.forEach((projectArr) => {
+      if (projectArr.name === project) {
+        projectArr.todos.push(newTodo)
+      } 
+    });
   }
 }

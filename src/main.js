@@ -11,21 +11,24 @@ let todo1 = new Todo(
   'Fix sink',
   'Fix the broken valve under the sink',
   '07/12/2022',
-  'Medium'
+  'Medium',
+  'None'
 );
 
 let todo2 = new Todo(
   'Take out trash',
   'The trash needs to be taken out to the curb',
   '07/19/2022',
-  'Low'
+  'Low',
+  'None'
 );
 
 let todo3 = new Todo(
   'Replace toilet paper',
   'The toilet paper is almost gone. Incoming crisis!',
   '07/14/2022',
-  'High'
+  'High',
+  'None'
 );
 
 let defaultProject = new Project('All Todos', [todo1, todo2, todo3]);
@@ -39,7 +42,7 @@ mainDiv.appendChild(title);
 let todoDiv = null;
 
 defaultProject.todos.forEach((todo) => {
-  displayCon.combineTodoProps(todo.title, todo.description, todo.dueDate, 
+  displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
                               todo.priority, todoDiv, mainDiv);
 });
 
@@ -51,7 +54,7 @@ document.addEventListener('click', (e) => {
     displayCon.removeAllChildNodes(mainDiv);
 
     defaultProject.todos.forEach((todo) => {
-      displayCon.combineTodoProps(todo.title, todo.description, todo.dueDate, 
+      displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
                                   todo.priority, todoDiv, mainDiv);
     });
   }

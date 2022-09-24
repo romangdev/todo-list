@@ -12,6 +12,8 @@ export default class displayController {
     } else if (count === 1) {
       todoProp.innerText = `DESC:\n${todoPropCall}`;
     } else if (count === 2) {
+      todoProp.innerText = `PROJECT:\n${todoPropCall}`;
+    } else if (count === 3) {
       todoProp.innerText = `DUE DATE:\n${todoPropCall}`;
     } else {
       todoProp.innerText = `PRIORITY:\n${todoPropCall}`;
@@ -20,11 +22,12 @@ export default class displayController {
     return ++count;
   };
 
-  combineTodoProps = (title, description, dueDate, priority, todoDiv, mainDiv) => {
+  combineTodoProps = (title, description, project, dueDate, priority, todoDiv, mainDiv) => {
     let count = 0;
     todoDiv = this.displayTodo(mainDiv);
     count = this.addTodoProp(title, todoDiv, count);
     count = this.addTodoProp(description, todoDiv, count);
+    count = this.addTodoProp(project, todoDiv, count);
     count = this.addTodoProp(dueDate, todoDiv, count);
     this.addTodoProp(priority, todoDiv, count);
     count = 0;
