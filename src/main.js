@@ -36,8 +36,7 @@ projects.push(defaultProject);
 
 let mainDiv = document.querySelector('.main');
 let title = document.createElement('h1');
-title.textContent = defaultProject.name;
-mainDiv.appendChild(title);
+displayCon.updateTitle(title, defaultProject, mainDiv);
 
 let todoDiv = null;
 
@@ -53,6 +52,8 @@ document.addEventListener('click', (e) => {
   if (e.target.className === "btn-add-todo") {
     create.createNewTodo(defaultProject, projects);
     displayCon.removeAllChildNodes(mainDiv);
+
+    displayCon.updateTitle(title, defaultProject, mainDiv);
 
     defaultProject.todos.forEach((todo) => {
       displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
@@ -72,19 +73,22 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// If 'View All Projects' button is clicked, then display all user generated
+// project names as buttons
 document.addEventListener('click', (e) => {
   if (e.target.className === "btn-all-projects") {
     displayCon.removeAllChildNodes(mainDiv);
-    projects.forEach((project) => {
-      let newProjectPara = document.createElement('button');
-      mainDiv.appendChild(newProjectPara);
-      newProjectPara.innerText = `${project.name}`;
-    });
+    displayCon.displayProjects(projects, mainDiv);
   }
 });
 
 mainDiv.addEventListener('click', (e) => {
   if (e.target.localName === 'button') {
-    console.log(e.target.innerText);
+    displayCon.removeAllChildNodes(mainDiv);
+    projects.forEach((project) => {
+      if (project.name === e.target.innerText) {
+        displayCon.updateTitle(title, project, mainDiv);
+      }
+    });
   }
 });

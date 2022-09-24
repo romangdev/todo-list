@@ -41,4 +41,17 @@ export default class displayController {
         parent.removeChild(parent.firstChild);
     }
   }
+
+  displayProjects = (projects, mainDiv) => {
+    projects.forEach((project) => {
+      let newProjectPara = document.createElement('button');
+      mainDiv.appendChild(newProjectPara);
+      newProjectPara.innerText = `${project.name}`;
+    });
+  }
+
+  updateTitle = (title, project, mainDiv) => {
+    title.textContent = project.name;
+    mainDiv.appendChild(title);
+  }
 }
