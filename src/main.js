@@ -103,45 +103,70 @@ mainDiv.addEventListener('click', (e) => {
   }
 });
 
-
-
+// Remove todo item from appropriate projects when corresponding delete button is clicked
 mainDiv.addEventListener('click', (e) => {
   if (e.target.className === 'delete-todo') {
 
     let headerName = document.querySelector('h1');
     let currentProject = null;
-
+    projects.forEach((project) => {
+      if (project.name === headerName.innerText) {
+        currentProject = project;
+      }
+    });
 
     let todoName = null;
     let projectName = null;
 
-    projects.forEach((projectArr) => {
-      // Remove todo item from 'All Todos' array
-      if (projectArr.name === 'All Todos') {
-        todoName = projectArr.todos[e.target.dataset.id].title;
-        projectName = projectArr.todos[e.target.dataset.id].project;
-        projectArr.todos.splice(e.target.dataset.id, 1);
+    let firstProject = null;
 
-      // Remove todo item from it's assigned array if it has one
-      } else if (projectArr.name === projectName) {
-        console.log(projectName);
-        let n = 0;
-        projectArr.todos.forEach((todo) => {
-          if (todo.title === todoName) {
-            projectArr.todos.splice(n, 1);
+    projects.forEach((projectArr) => {
+      if (projectArr.name === currentProject.name) {
+        projectName = projectArr.todos[e.target.dataset.id].project;
+        todoName = projectArr.todos[e.target.dataset.id].title;
+        firstProject = projectArr.name;
+
+        projectArr.todos.splice(e.target.dataset.id, 1);
+      }
+    });
+
+    console.log(firstProject);
+    console.log(projectName);
+
+    if (projectName !== 'None') {
+      if (firstProject !== 'All Todos') {
+        projects.forEach((project) => {
+          if (project.name === 'All Todos') {
+            for (let i = 0; i < project.todos.length; i++) {
+              if (project.todos[i].title === todoName) {
+                project.todos.splice(i, 1);
+              }
+            }
           }
-          ++n;
         });
       }
+    }
 
-      // Update the display
-      displayCon.removeAllChildNodes(mainDiv);
-      displayCon.updateTitle(title, projectArr, mainDiv);
-      projectArr.todos.forEach((todo) => {
-        displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
-                                    todo.priority, todoDiv, mainDiv);
-      });
-      create.addDataIdToBtns();
-    });
+//prob code for next one
+    // projects.forEach((project) => {
+    //   if (project.name === projectName) {
+    //     for (let i = 0; i < project.lenght; i++) {
+    //       if (project[i].title === todoName) {
+    //         project.splice(i, 1);
+    //       }
+    //     }
+    //   }
+    // });
+
+    console.log(projects);
+
+    // Update the display (NOT WORKING PROPERLY STILL GOING) PROB HAVE TO MOVE OUT OF FOR EACH
+    // displayCon.removeAllChildNodes(mainDiv);
+    // displayCon.updateTitle(title, currentProject, mainDiv);
+    // projectArr.todos.forEach((todo) => {
+    //   displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
+    //                               todo.priority, todoDiv, mainDiv);
+    // });
+    // create.addDataIdToBtns();
   }
 });
