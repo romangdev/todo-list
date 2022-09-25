@@ -42,4 +42,13 @@ export default class Create {
       } 
     });
   };
+
+  addDataIdToBtns = () => {
+    let deleteBtns = document.querySelectorAll('.delete-todo');
+    let n = 0;
+    deleteBtns.forEach((btn) => {
+      btn.dataset.id = n;
+      ++n;
+    });
+  }
 }

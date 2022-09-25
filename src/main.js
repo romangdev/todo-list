@@ -44,6 +44,8 @@ let todoDiv = null;
 defaultProject.todos.forEach((todo) => {
   displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
                               todo.priority, todoDiv, mainDiv);
+
+  create.addDataIdToBtns();
 });
 
 // If the 'Add a Todo' button is clicked, create new todo based on user response
@@ -59,6 +61,7 @@ document.addEventListener('click', (e) => {
       displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
                                   todo.priority, todoDiv, mainDiv);
     });
+    create.addDataIdToBtns();
   }
 });
 
@@ -82,10 +85,10 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// When a project is chosed from the 'View All Projects' list, update the project
+// When a project is chosen from the 'View All Projects' list, update the project
 // title and only show todo tasks for that project
 mainDiv.addEventListener('click', (e) => {
-  if (e.target.localName === 'button' && e.target.className === 'project-btn') {
+  if (e.target.className === 'project-btn') {
     displayCon.removeAllChildNodes(mainDiv);
     projects.forEach((project) => {
       if (project.name === e.target.innerText) {
@@ -94,7 +97,14 @@ mainDiv.addEventListener('click', (e) => {
           displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
                                       todo.priority, todoDiv, mainDiv);
         });
+        create.addDataIdToBtns();
       }
     });
+  }
+});
+
+mainDiv.addEventListener('click', (e) => {
+  if (e.target.className === 'delete-todo') {
+
   }
 });
