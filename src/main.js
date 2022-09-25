@@ -103,8 +103,45 @@ mainDiv.addEventListener('click', (e) => {
   }
 });
 
+
+
 mainDiv.addEventListener('click', (e) => {
   if (e.target.className === 'delete-todo') {
 
+    let headerName = document.querySelector('h1');
+    let currentProject = null;
+
+
+    let todoName = null;
+    let projectName = null;
+
+    projects.forEach((projectArr) => {
+      // Remove todo item from 'All Todos' array
+      if (projectArr.name === 'All Todos') {
+        todoName = projectArr.todos[e.target.dataset.id].title;
+        projectName = projectArr.todos[e.target.dataset.id].project;
+        projectArr.todos.splice(e.target.dataset.id, 1);
+
+      // Remove todo item from it's assigned array if it has one
+      } else if (projectArr.name === projectName) {
+        console.log(projectName);
+        let n = 0;
+        projectArr.todos.forEach((todo) => {
+          if (todo.title === todoName) {
+            projectArr.todos.splice(n, 1);
+          }
+          ++n;
+        });
+      }
+
+      // Update the display
+      displayCon.removeAllChildNodes(mainDiv);
+      displayCon.updateTitle(title, projectArr, mainDiv);
+      projectArr.todos.forEach((todo) => {
+        displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
+                                    todo.priority, todoDiv, mainDiv);
+      });
+      create.addDataIdToBtns();
+    });
   }
 });
