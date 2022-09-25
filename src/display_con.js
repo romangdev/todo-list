@@ -34,6 +34,16 @@ export default class displayController {
     count = this.addTodoProp(dueDate, todoDiv, count);
     this.addTodoProp(priority, todoDiv, count);
     count = 0;
+
+    this.addTodoDeleteBtn(todoDiv);
+  }
+
+  // Add a delete button to a todo item
+  addTodoDeleteBtn = (todoDiv) => {
+    let deleteBtn = document.createElement('button');
+    deleteBtn.innerText = 'Delete';
+    deleteBtn.classList.add('delete-todo');
+    todoDiv.appendChild(deleteBtn);
   }
 
   removeAllChildNodes = (parent) => {
@@ -42,14 +52,17 @@ export default class displayController {
     }
   }
 
+  // display all existing projects 
   displayProjects = (projects, mainDiv) => {
     projects.forEach((project) => {
       let newProjectPara = document.createElement('button');
+      newProjectPara.classList.add('project-btn')
       mainDiv.appendChild(newProjectPara);
       newProjectPara.innerText = `${project.name}`;
     });
   }
 
+  // update the main h1 tag project title over project list user is viewing
   updateTitle = (title, project, mainDiv) => {
     title.textContent = project.name;
     mainDiv.appendChild(title);
