@@ -126,9 +126,9 @@ mainDiv.addEventListener('click', (e) => {
     // and from the 'All Todos' list
     if (projectName !== 'None') {
       if (firstProject !== 'All Todos') {
-        remove.removeBtnFromProject(projects, 'All Todos', todoName);
+        remove.removeTodoFromProject(projects, 'All Todos', todoName);
       } else {
-        remove.removeBtnFromProject(projects, projectName, todoName);
+        remove.removeTodoFromProject(projects, projectName, todoName);
       }
     }
 

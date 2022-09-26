@@ -1,5 +1,5 @@
 export default class Remove {
-  removeBtnFromProject = (projects, projectName, todoName) => {
+  removeTodoFromProject = (projects, projectName, todoName) => {
     projects.forEach((project) => {
       if (project.name === projectName) {
         for (let i = 0; i < project.todos.length; i++) {
