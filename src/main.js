@@ -120,6 +120,8 @@ mainDiv.addEventListener('click', (e) => {
 
     let firstProject = null;
 
+    // Go into the project array that matches the current heading the user sees
+    // and delete the relevant todo item
     projects.forEach((projectArr) => {
       if (projectArr.name === currentProject.name) {
         projectName = projectArr.todos[e.target.dataset.id].project;
@@ -134,6 +136,8 @@ mainDiv.addEventListener('click', (e) => {
     console.log(projectName);
 
     if (projectName !== 'None') {
+      // If the first project to have its item deleted was NOT 'All Todos', then
+      // delete the relevant item from the 'All Todos' "project" as well
       if (firstProject !== 'All Todos') {
         projects.forEach((project) => {
           if (project.name === 'All Todos') {
@@ -144,29 +148,28 @@ mainDiv.addEventListener('click', (e) => {
             }
           }
         });
+          // MUST DO SPECIFIC PROJECT NAME NEXT IF ALL TODOS WAS DELETED FIRST
+      } else {
+        projects.forEach((project) => {
+          if (project.name === projectName) {
+            for (let i = 0; i < project.todos.length; i++) {
+              if (project.todos[i].title === todoName) {
+                project.todos.splice(i, 1);
+              }
+            }
+          }
+        });
       }
     }
 
-//prob code for next one
-    // projects.forEach((project) => {
-    //   if (project.name === projectName) {
-    //     for (let i = 0; i < project.lenght; i++) {
-    //       if (project[i].title === todoName) {
-    //         project.splice(i, 1);
-    //       }
-    //     }
-    //   }
-    // });
-
     console.log(projects);
 
-    // Update the display (NOT WORKING PROPERLY STILL GOING) PROB HAVE TO MOVE OUT OF FOR EACH
-    // displayCon.removeAllChildNodes(mainDiv);
-    // displayCon.updateTitle(title, currentProject, mainDiv);
-    // projectArr.todos.forEach((todo) => {
-    //   displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
-    //                               todo.priority, todoDiv, mainDiv);
-    // });
-    // create.addDataIdToBtns();
+    displayCon.removeAllChildNodes(mainDiv);
+    displayCon.updateTitle(title, currentProject, mainDiv);
+    currentProject.todos.forEach((todo) => {
+      displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
+                                  todo.priority, todoDiv, mainDiv);
+    });
+    create.addDataIdToBtns();
   }
 });
