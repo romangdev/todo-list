@@ -56,14 +56,7 @@ document.addEventListener('click', (e) => {
   if (e.target.className === "btn-add-todo") {
     create.createNewTodo(defaultProject, projects);
     displayCon.removeAllChildNodes(mainDiv);
-
-    displayCon.updateTitle(title, defaultProject, mainDiv);
-
-    defaultProject.todos.forEach((todo) => {
-      displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
-                                  todo.priority, todoDiv, mainDiv);
-    });
-    create.addDataIdToBtns();
+    displayCon.updateDisplay(defaultProject, title, mainDiv, todoDiv, create);
   }
 });
 
@@ -94,12 +87,7 @@ mainDiv.addEventListener('click', (e) => {
     displayCon.removeAllChildNodes(mainDiv);
     projects.forEach((project) => {
       if (project.name === e.target.innerText) {
-        displayCon.updateTitle(title, project, mainDiv);
-        project.todos.forEach((todo) => {
-          displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
-                                      todo.priority, todoDiv, mainDiv);
-        });
-        create.addDataIdToBtns();
+        displayCon.updateDisplay(project, title, mainDiv, todoDiv, create);
       }
     });
   }
@@ -144,12 +132,7 @@ mainDiv.addEventListener('click', (e) => {
       }
     }
 
-    displayCon.removeAllChildNodes(mainDiv);
-    displayCon.updateTitle(title, currentProject, mainDiv);
-    currentProject.todos.forEach((todo) => {
-      displayCon.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
-                                  todo.priority, todoDiv, mainDiv);
-    });
-    create.addDataIdToBtns();
+      displayCon.removeAllChildNodes(mainDiv);
+      displayCon.updateDisplay(currentProject, title, mainDiv, todoDiv, create);
   }
 });

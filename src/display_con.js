@@ -1,3 +1,5 @@
+import Create from './create.js'
+
 export default class displayController {
   // Display todo item to user
   displayTodo = (mainDiv) => {
@@ -66,5 +68,16 @@ export default class displayController {
   updateTitle = (title, project, mainDiv) => {
     title.textContent = project.name;
     mainDiv.appendChild(title);
+  }
+
+  // Update the todo list display to match it's current state and the current 
+  // list being shown
+  updateDisplay = (projectType, title, mainDiv, todoDiv, create) => {
+    this.updateTitle(title, projectType, mainDiv);
+    projectType.todos.forEach((todo) => {
+      this.combineTodoProps(todo.title, todo.description, todo.project, todo.dueDate, 
+                                  todo.priority, todoDiv, mainDiv);
+    });
+    create.addDataIdToBtns();
   }
 }
