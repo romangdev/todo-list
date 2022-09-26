@@ -2,9 +2,11 @@ import Todo from './todo.js'
 import Project from './project.js'
 import Create from './create.js'
 import displayController from './display_con.js'
+import Remove from './remove.js'
 
 let displayCon = new displayController;
 let create = new Create;
+let remove = new Remove;
 let projects = [];
 
 let todo1 = new Todo(
@@ -132,37 +134,15 @@ mainDiv.addEventListener('click', (e) => {
       }
     });
 
-    console.log(firstProject);
-    console.log(projectName);
-
+    // If todo task has an assigned project, delete it from that project
+    // and from the 'All Todos' list
     if (projectName !== 'None') {
-      // If the first project to have its item deleted was NOT 'All Todos', then
-      // delete the relevant item from the 'All Todos' "project" as well
       if (firstProject !== 'All Todos') {
-        projects.forEach((project) => {
-          if (project.name === 'All Todos') {
-            for (let i = 0; i < project.todos.length; i++) {
-              if (project.todos[i].title === todoName) {
-                project.todos.splice(i, 1);
-              }
-            }
-          }
-        });
-          // MUST DO SPECIFIC PROJECT NAME NEXT IF ALL TODOS WAS DELETED FIRST
+        remove.removeBtnFromProject(projects, 'All Todos', todoName);
       } else {
-        projects.forEach((project) => {
-          if (project.name === projectName) {
-            for (let i = 0; i < project.todos.length; i++) {
-              if (project.todos[i].title === todoName) {
-                project.todos.splice(i, 1);
-              }
-            }
-          }
-        });
+        remove.removeBtnFromProject(projects, projectName, todoName);
       }
     }
-
-    console.log(projects);
 
     displayCon.removeAllChildNodes(mainDiv);
     displayCon.updateTitle(title, currentProject, mainDiv);
